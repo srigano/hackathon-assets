@@ -112,3 +112,40 @@ spec:
         resources:
           requests:
             storage: 1000Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-index
+  namespace: hackathon-api
+spec:
+  template:
+    spec:
+      containers:
+        - name: mongo-index
+          image: mongoclient/mongoclient
+          command:
+            - "sh"
+            - "-c"
+            - >
+              sleep 60;
+              MASTER=`mongo --host mongo-0.mongo --quiet --eval "db.isMaster().ismaster"`;
+              if $MASTER; then
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "donatorName": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "amount": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "moneyType": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "pdfRef": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "donatorName": 1, "moneyType": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "donatorName": 1, "amount": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "amount": 1, "moneyType": 1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "donatorName": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "amount": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "moneyType": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "pdfRef": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "donatorName": -1, "moneyType": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "donatorName": -1, "amount": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.createIndex({ "amount": -1, "moneyType": -1 })' donation;
+                mongo --host mongo-0.mongo --eval 'db.donations.aggregate([{ $indexStats: { }}])' donation;
+              fi
+      restartPolicy: Never
+  backoffLimit: 4
