@@ -11,7 +11,7 @@ Set the `VUE_APP_API_ENDPOINT` via env var to the hackathon api, for exemple: `h
 #### Deploy on docker
 
 ```bash
-docker run -e VUE_APP_API_ENDPOINT=http://172.17.0.3:8080 -p 8081:80 --name hackathon-ui -d hackathon-ui
+docker run -e VUE_APP_API_ENDPOINT=http://172.17.0.3:8080 -p 8081:80 --name hackathon-ui -d cagip/hackathon-ui
 ```
 
 #### Deploy on Kubernetes
