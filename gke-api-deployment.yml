@@ -20,6 +20,8 @@ spec:
       labels:
         app: hackathon-api
     spec:
+      imagePullSecrets:
+      - name: regcred    
       containers:
         - name: hackathon-api
           image: europe-west3-docker.pkg.dev/cagip-hackathon-eq03-inno0/hackathon:latest
