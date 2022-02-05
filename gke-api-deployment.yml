@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hackathon-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hackathon-api-deployment
+  namespace: hackathon-api
+  labels:
+    app: hackathon-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hackathon-api
+  template:
+    metadata:
+      labels:
+        app: hackathon-api
+    spec:
+      containers:
+        - name: hackathon-api
+          image: europe-west3-docker.pkg.dev/cagip-hackathon-eq03-inno0-6b/hackathon:latest
+          imagePullPolicy: Always
+          env:
+            - name: VUE_APP_API_ENDPOINT
+              value: 'http://<public_ip_hackathon-api>'
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              scheme: HTTP
+              port: 80
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              scheme: HTTP
+              port: 80
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          resources:
+            requests:
+              memory: 500Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hackathon-api-svc
+  namespace: hackathon-api
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+  labels:
+    app: hackathon-api
+spec:
+  type: LoadBalancer
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: hackathon-api
