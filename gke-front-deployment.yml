@@ -3,12 +3,6 @@ kind: Namespace
 metadata:
   name: hackathon-ui
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: hackathon-ui-user
-  namespace: hackathon-ui
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +20,6 @@ spec:
       labels:
         app: hackathon-ui
     spec:
-      serviceAccountName: hackathon-ui-user
       containers:
         - name: hackathon-ui
           image: cagip/hackathon-ui:latest
