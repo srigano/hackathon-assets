@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: hackathon-ui-user
+  name: devops-sa-1
   namespace: hackathon-ui
 ---
 apiVersion: apps/v1
@@ -26,7 +26,7 @@ spec:
       labels:
         app: hackathon-ui
     spec:
-      serviceAccountName: hackathon-ui-user
+      serviceAccountName: hdevops-sa-1
       containers:
         - name: hackathon-ui
           image: cagip/hackathon-ui:latest
