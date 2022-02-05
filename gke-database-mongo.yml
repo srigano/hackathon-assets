@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hackathon-api
+  name: hackathon
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -14,7 +14,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: default
-    namespace: hackathon-api
+    namespace: hackathon
 ---
 #	Copyright 2017, Google, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,7 +53,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongo
-  namespace: hackathon-api
+  namespace: hackathon
   labels:
     name: mongo
 spec:
@@ -68,7 +68,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
-  namespace: hackathon-api
+  namespace: hackathon
   labels:
     app: mongo
 spec:
@@ -117,7 +117,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: mongo-index
-  namespace: hackathon-api
+  namespace: hackathon
 spec:
   template:
     spec:
