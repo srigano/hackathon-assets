@@ -24,7 +24,7 @@ spec:
       - name: regcred
       containers:
         - name: hackathon-api
-          image: europe-west3-docker.pkg.dev/cagip-hackathon-eq03-inno0-6b/hackathon:latest
+          image: europe-west3-docker.pkg.dev/cagip-hackathon-eq03-inno0-6b/hackathon/hackathon-api:latest
           imagePullPolicy: Always
           env:
             - name: VUE_APP_API_ENDPOINT
