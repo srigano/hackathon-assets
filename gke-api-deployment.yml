@@ -29,6 +29,8 @@ spec:
           env:
             - name: VUE_APP_API_ENDPOINT
               value: 'http://<public_ip_hackathon-api>'
+            - name: MONGOURI
+              value: 'mongodb://10.12.13.3:27017/donation?retryWrites=true&w=majority'  
           livenessProbe:
             failureThreshold: 3
             httpGet:
