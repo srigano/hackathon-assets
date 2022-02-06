@@ -34,13 +34,13 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /
+              path: /donation
               scheme: HTTP
               port: 8080
             initialDelaySeconds: 10
           readinessProbe:
             httpGet:
-              path: /
+              path: /donation
               scheme: HTTP
               port: 8080
             initialDelaySeconds: 10
