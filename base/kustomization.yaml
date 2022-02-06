@@ -1,0 +1,4 @@
+resources:
+  - gke-api-deployment.yml
+  - gke-database-mongo.yml
+  - gke-front-deployment.yml

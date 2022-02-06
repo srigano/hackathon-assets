@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: hackathon-ui
-          image: cagip/hackathon-ui:latest
+          image: cagip/hackathon-ui:dev
           imagePullPolicy: Always
           env:
             - name: VUE_APP_API_ENDPOINT

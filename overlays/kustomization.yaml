@@ -1,0 +1,7 @@
+resources:
+  - ../base/
+
+images:
+  - name: hackathon-api
+    newName: europe-west3-docker.pkg.dev/cagip-hackathon-eq03-inno0-6b/hackathon/hackathon-api
+    newTag: 76cf60602cc78f6167994bd77cd212d01272b757
