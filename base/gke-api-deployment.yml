@@ -33,14 +33,12 @@ spec:
               value: 'mongodb://10.12.12.10:27017/donation?retryWrites=true&w=majority'  
           livenessProbe:
             failureThreshold: 3
-            httpGet:
-              path: /donations
-              scheme: HTTP
+            tcpSocket:
               port: 8080
             initialDelaySeconds: 10
           readinessProbe:
             httpGet:
-              path: /donations
+              path: /statistics
               scheme: HTTP
               port: 8080
             initialDelaySeconds: 10
